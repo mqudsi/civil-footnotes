@@ -57,7 +57,13 @@ class swas_wp_footnotes {
 		$start_number = (preg_match("|<!\-\-startnum=(\d+)\-\->|",$data,$start_number_array)==1) ? $start_number_array[1] : 1;
 
 		// Regex extraction of all footnotes (or return if there are none)
-		if (!preg_match_all("/(".preg_quote(WP_FOOTNOTES_OPEN)."|<footnote>)(.*)(".preg_quote(WP_FOOTNOTES_CLOSE)."|<\/footnote>)/Us", $data, $identifiers, PREG_SET_ORDER)) {
+		if (!preg_match_all("/(\ ?" . preg_quote(WP_FOOTNOTES_OPEN) . "|<footnote>) # opening bit
+				# followed by at least one non-whitespace character inside,
+				# but nothing that matches WP_FOOTNOTES_OPEN literally
+				((?:\s*(?!" . preg_quote(WP_FOOTNOTES_CLOSE) . ")\S)+\s*?)
+				(".preg_quote(WP_FOOTNOTES_CLOSE)."|<\/footnote>) # closing bit
+				/sx", $data, $identifiers, PREG_SET_ORDER))
+		{
 			return $data;
 		}
 
