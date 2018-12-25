@@ -52,6 +52,10 @@ class swas_wp_footnotes {
 	function process($data) {
 		global $post;
 
+		if (!is_object($post)) {
+			return;
+		}
+
 		// Check for and setup the starting number
 		$start_number = (preg_match("|<!\-\-startnum=(\d+)\-\->|",$data,$start_number_array)==1) ? $start_number_array[1] : 1;
 
