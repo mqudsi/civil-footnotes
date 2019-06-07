@@ -26,7 +26,7 @@ class swas_wp_footnotes {
 	/**
 	 * Constructor.
 	 */
-	function __constructor() {
+	function __construct() {
 		// Define the implemented option styles
 		$this->styles = array(
 			'decimal' => '1,2...10',
