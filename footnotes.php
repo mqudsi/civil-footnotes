@@ -5,7 +5,7 @@ Plugin URI: https://defomicron.net/projects/civil_footnotes
 Version: 1.3.1
 Description: Parses and displays footnotes. Based on <a href="http://elvery.net/drzax/wordpress-footnotes-plugin">WP-Foonotes</a> by <a href="http://elvery.net">Simon Elvery</a>, and the footnote syntax pioneered by <a href="http://daringfireball.net/2005/07/footnotes">John Gruber</a>.
 Author: <a href="https://defomicron.net/colophon">Austin Sweeney</a>
-*/
+ */
 
 // If you’d like to edit the output, scroll down to the
 // “Display the footnotes” section near the end of this file.
@@ -60,12 +60,14 @@ class swas_wp_footnotes {
 		$start_number = (preg_match("|<!\-\-startnum=(\d+)\-\->|",$data,$start_number_array)==1) ? $start_number_array[1] : 1;
 
 		// Regex extraction of all footnotes (or return if there are none)
-		if (!preg_match_all("/(\ ?" . preg_quote(WP_FOOTNOTES_OPEN) . "|<footnote>) # opening bit
-				# followed by at least one non-whitespace character inside,
-				# but nothing that matches WP_FOOTNOTES_OPEN literally
-				((?:\s*(?!" . preg_quote(WP_FOOTNOTES_CLOSE) . ")\S)+\s*?)
-				(".preg_quote(WP_FOOTNOTES_CLOSE)."|<\/footnote>) # closing bit
-				/sx", $data, $identifiers, PREG_SET_ORDER))
+		$regex = "/(\ ?" . preg_quote(WP_FOOTNOTES_OPEN) . "|<footnote>) # opening bit
+			# followed by at least one non-whitespace character inside,
+			# but nothing that matches WP_FOOTNOTES_OPEN literally
+			((?:\s*(?!" . preg_quote(WP_FOOTNOTES_CLOSE) . ")\S)+\s*?)
+			(".preg_quote(WP_FOOTNOTES_CLOSE)."|<\/footnote>) # closing bit
+			/sx";
+
+		if (!preg_match_all($regex, $data, $identifiers, PREG_SET_ORDER))
 		{
 			return $data;
 		}
@@ -114,9 +116,9 @@ class swas_wp_footnotes {
 			if ($display) $data = substr_replace($data, $id_replace, strpos($data,$value[0]),strlen($value[0]));
 			else $data = substr_replace($data, '', strpos($data,$value[0]),strlen($value[0]));
 
-	// Display the footnotes (here is where you can change the output)
+			// Display the footnotes (here is where you can change the output)
 
-		// Create each footnote
+			// Create each footnote
 			$datanote = $datanote.'<li id="fn'.$id_num.'-'.$post->ID.'">'; // You can add a class to the list item
 			$datanote = $datanote.'<p>'; // Before the footnote
 			$datanote = $datanote.$value['text'].'&nbsp;<a href="#'.$id_id.'"'; // The footnote (don't change this)
@@ -126,7 +128,7 @@ class swas_wp_footnotes {
 		}
 
 
-	// Create the footnotes
+		// Create the footnotes
 		foreach ($footnotes as $key => $value) {
 			$data = $data.'<hr class="footnotes"><ol class="footnotes"'; // Before the footnotes
 			if ($start_number != '1') $data = $data.' start="'.$start_number.'"';
@@ -134,14 +136,14 @@ class swas_wp_footnotes {
 			$data = $data.$datanote; // Don't change this
 			$data = $data.'</ol>'; // After the footnotes
 
-		return $data;
+			return $data;
 
 		}
 	}
 
-	function upgrade_post($data){
-		$data = str_replace('<footnote>',WP_FOOTNOTES_OPEN,$data);
-		$data = str_replace('</footnote>',WP_FOOTNOTES_CLOSE,$data);
+	function upgrade_post($data) {
+		$data = str_replace('<footnote>', WP_FOOTNOTES_OPEN, $data);
+		$data = str_replace('</footnote>', WP_FOOTNOTES_CLOSE, $data);
 		return $data;
 	}
 }
