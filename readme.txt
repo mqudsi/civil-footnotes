@@ -1,17 +1,17 @@
 === Civil Footnotes ===
-Contributors: defomicron
+Contributors: defomicron, mqudsi
 Tags: footnotes, post, posts, notes, reference, formatting, referencing, bibliography, citation
 Requires at least: 2.0
-Tested up to: 3.9.1
-Stable tag: 1.3.1
-License: GPLv2 or later
+Tested up to: 5.3.1
+Stable tag: 2.0
+License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create footnotes using a simple, easy-to-read syntax. Based on ‘WP-Footnotes’, a plugin by Simon Elvery, and Daring Fireball’s footnotes.
+Create footnotes using a simple, easy-to-read syntax. Based on WP-Footnotes, a plugin by Simon Elvery, and Daring Fireball's footnotes.
 
 == Description ==
 
-# “Civil Footnotes is kickass. Works like a charm.” #  
+# “Civil Footnotes is kickass. Works like a charm.” #
 —Daniel Ignacio
 
 Civil Footnotes is a WordPress plugin for adding footnotes on your blog. Civil Footnotes parses your posts for notes wrapped in ((double parenthesis)), which are then reformatted as Daring Fireball-style footnotes.
@@ -90,7 +90,7 @@ From the [main plugin page](https://defomicron.net/projects/civil_footnotes) on 
 - Revised structure of output creation to make it easier to modify output HTML
 - Fixed a bug that caused a `</p>` tag to not appear in the notes
 
-This update is recommended for all users running Civil Footnotes 1.0 
+This update is recommended for all users running Civil Footnotes 1.0
 
 = 1.0 =
 
